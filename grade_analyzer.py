@@ -1,4 +1,10 @@
-students = []
+import json
+
+try:
+    with open("students.json", "r") as file:
+         students = json.load(file)
+except (FileNotFoundError, json.JSONDecodeError):
+    students = []
 
 while True:
     print("\n--- Student Grade Analyzer ---")
@@ -42,6 +48,9 @@ while True:
             "average": average,
             "grade": grade
         })
+
+        with open("students.json", "w") as file:
+            json.dump(students, file)
 
         print("Student added!")
 
