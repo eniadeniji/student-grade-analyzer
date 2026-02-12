@@ -10,7 +10,9 @@ while True:
     print("\n--- Student Grade Analyzer ---")
     print("1. Add Student Scores")
     print("2. View Results")
-    print("3. Exit")
+    print("3. Search Student")
+    print("4. Delete Student")
+    print("5. Exit")
 
     choice = input("Choose an option:")
 
@@ -19,6 +21,10 @@ while True:
 
         if name == "":
             print("Name can not be empty.")
+            continue
+
+        if any(s["name"].lower() == name.lower() for s in students):
+            print("Student already exists.")
             continue
 
         scores = input("Enter scores separated by space: ").split()
@@ -78,6 +84,37 @@ while True:
         print(f"Lowest Average: {lowest:.2f}")
 
     elif choice == "3":
+        search_name = input("Enter student name to search: ").strip()
+
+        found = False
+        for student in students:
+            if student["name"].lower() == search_name.lower():
+                print(f"\nFound: {student['name']} - Avg: {student['average']:.2f}, Grade: {student['grade']}")
+                found = True
+                break
+        if not found:
+            print("Student not found")
+
+    elif choice == "4":
+        delete_name = input("Enter student name to delete: ")
+
+        found = False
+
+        for student in students:
+            if student["name"].strip().lower() == delete_name.lower():
+                  students.remove(student)
+                  found = True
+                  break
+        
+        if found:
+            with open("students.json", "w") as file:
+                json.dump(students, file)
+            print("Student deleted successfully.")
+        else:
+            print("Student not found.")
+
+
+    elif choice == "5":
         print("Goodbye!")
         break
     
