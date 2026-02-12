@@ -29,6 +29,10 @@ while True:
             print("Score must be numbers only.")
             continue
 
+        if len(scores) == 0:
+            print("You must enter at least one score.")
+            continue
+
         average = sum(scores) / len(scores)
 
         if average >= 70:
@@ -60,7 +64,18 @@ while True:
             print("No student records yet.")
             continue
         for student in students:
-            print(f"{student['name']} → Avg: {student['average']:.2f}, Grade: {student['grade']}")
+            print(f"{student['name']} - Avg: {student['average']:.2f}, Grade: {student['grade']}")
+
+        averages = [student["average"] for student in students]
+        class_avg = sum(averages) / len(averages)
+        highest = max(averages)
+        lowest = min(averages)
+
+        print("\n ---Class Statistics ---")
+        print(f"Total Students:{len(students)}")
+        print(f"Class Average: {class_avg:.2f}")
+        print(f"Highest Average: {highest:.2f}")
+        print(f"Lowest Average: {lowest:.2f}")
 
     elif choice == "3":
         print("Goodbye!")
