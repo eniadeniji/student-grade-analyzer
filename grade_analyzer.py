@@ -8,13 +8,21 @@ Features:
 - Delete student
 - Class Statistics
 - JSON persistence
+
+Technologies:
+- Python
+- JSON
+- CLI
+- File I/O
 """
 
 import json
 
+FILE_NAME = "students.json"
+
 def load_students():
     try:
-        with open("students.json", "r") as file:
+        with open(FILE_NAME, "r") as file:
             return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
@@ -102,8 +110,8 @@ def calculate_grade(average):
             return "F"
      
 def save_students(students):
-     with open("students.json", "w") as file:
-          json.dump(students, file)
+     with open(FILE_NAME, "w") as file:
+          json.dump(students, file, indent=4)
 
 def delete_student(students):
      delete_name = input("Enter student name to delete: ").strip()
@@ -128,7 +136,7 @@ def main():
          print("4. Delete Student")
          print("5. Exit")
 
-         choice = input("Choose an option:")
+         choice = input("Choose an option: ")
 
          if choice == "1":
            students = add_student(students)
